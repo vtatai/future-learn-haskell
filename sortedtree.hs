@@ -33,3 +33,29 @@ addNewMax Leaf = Node 0 Leaf Leaf  -- input tree with no nodes
 addNewMax (Node x t1 Leaf) = Node x t1 (Node (x+1) Leaf Leaf)  -- this is the rightmost Node
 addNewMax (Node x t1 t2) = Node x t1 (addNewMax t2) -- intermediate node, go down right subtree
 
+-- PROPOSED EXERCISES
+-- For testing: let tree = Node 10 (Node 5 Leaf Leaf) (Node 15 Leaf (Node 13 Leaf Leaf))
+{- Insert in order
+    Takes an ordered tree and inserts a new node into it
+-}
+addNewValue :: Tree -> Int -> Tree
+addNewValue Leaf x = Node x Leaf Leaf
+addNewValue (Node treeVal l r) x 
+  | x == treeVal = Node x Leaf (Node treeVal l r)
+  | x < treeVal = Node treeVal (addNewValue l x) r
+  | x > treeVal = Node treeVal l (addNewValue r x)
+
+-- Convert to list
+inOrderToList :: Tree -> [Int]
+inOrderToList Leaf = []
+inOrderToList (Node x l r) = (inOrderToList l) ++ [x] ++ (inOrderToList r)
+
+-- Convert to list, pre order, why not
+preOrderToList :: Tree -> [Int]
+preOrderToList Leaf = []
+preOrderToList (Node x l r) = [x] ++ (preOrderToList l) ++ (preOrderToList r)
+
+-- Convert to list, post order
+postOrderToList :: Tree -> [Int]
+postOrderToList Leaf = []
+postOrderToList (Node x l r) = (postOrderToList l) ++ (postOrderToList r) ++ [x]
