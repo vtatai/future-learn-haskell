@@ -59,3 +59,4 @@ preOrderToList (Node x l r) = [x] ++ (preOrderToList l) ++ (preOrderToList r)
 postOrderToList :: Tree -> [Int]
 postOrderToList Leaf = []
 postOrderToList (Node x l r) = (postOrderToList l) ++ (postOrderToList r) ++ [x]
+
